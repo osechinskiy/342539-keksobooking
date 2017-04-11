@@ -1,6 +1,3 @@
-// 1 фичи(спан) добавлять в фрагмент с помощью функции и возвращать фрагмент и дальше с ним рабоать
-//
-
 'use strict';
   //  1.Создайте массив, состоящий из 8 сгенерированных JS объектов,
   //  которые будут описывать похожие объявления неподалеку. Структура объектов должна быть следующей:
@@ -9,6 +6,22 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max + 1 - min)) + min;
   }
 
+function getRandomFeatures(){
+  var randFeatures = [];
+  var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  var size = features.length;
+  for (var i = 0; i < size; i++) {
+    var randNumber = getRandomInt(0, 1);
+    var randNumberArr = getRandomInt(0, features.length - 1);
+    if (randNumber === 1) {
+      randFeatures.push(features[randNumberArr]);
+      features.splice(randNumberArr, 1);
+
+    }
+  }
+    return randFeatures;
+}
+
 function getObject(n) {
   var objects = [];
   var title = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
@@ -16,22 +29,9 @@ function getObject(n) {
   var checkin = ['12:00', '13:00', '14:00'];
   var checkout = ['12:00', '13:00', '14:00'];
   var photos = [];
-  var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var maxSteep = features.length;
 
   for (var i = 0; i < n; i++) {
-    var priceRand = getRandomInt(1000, 1000000);
-    var locationRandX = getRandomInt(300, 900);
-    var locationRandY = getRandomInt(100, 500);
-    var typeRand = Math.floor(Math.random() * (type.length));
-    var roomsRand = getRandomInt(1, 5);
-    var guestsRand = getRandomInt(1, 20);
-    var checkinRand = Math.floor(Math.random() * (checkin.length));
-    var checkoutRand = Math.floor(Math.random() * (checkout.length));
-    var firtsSteep = Math.floor(Math.random() * (maxSteep - 3 + 1)) + 0;
-    var secondSteep = Math.floor(Math.random() * (maxSteep - firtsSteep + 1)) + (firtsSteep + 1);
-    var resultStep = features.slice(firtsSteep, secondSteep);
-
     objects.push({
       author: {
         avatar: ('img/avatars/user0') + (i + 1) + ('.png')
@@ -39,21 +39,21 @@ function getObject(n) {
 
       offer: {
         title: title[i],
-        address: locationRandX + ', ' + locationRandY,
-        price: priceRand,
-        type: type[typeRand],
-        rooms: roomsRand,
-        guests: guestsRand,
-        checkin: checkin[checkinRand],
-        checkout: checkout[checkoutRand],
-        features: resultStep,
+        address: getRandomInt(300, 900) + ', ' + getRandomInt(100, 500),
+        price: getRandomInt(1000, 1000000),
+        type: type[getRandomInt(0, type.length - 1)],
+        rooms: getRandomInt(1, 20),
+        guests: getRandomInt(1, 20),
+        checkin: checkin[getRandomInt(0, checkin.length - 1)],
+        checkout: checkout[getRandomInt(0, checkout.length - 1)],
+        features: getRandomFeatures(),
         description: ' ',
         photos: photos
       },
 
       location: {
-        x: locationRandX,
-        y: locationRandY
+        x: getRandomInt(300, 900),
+        y: getRandomInt(100, 500)
       }
     }
   );
@@ -115,7 +115,7 @@ function getHouseType(local) {
 }
   return typeName;
 }
-debugger;
+
 var i = 0;
 //for (i = 0; i < objects.length; i++) {
   var FeaturesType = getFeaturesType(objects[i]);
