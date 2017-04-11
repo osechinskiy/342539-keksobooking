@@ -4,9 +4,9 @@
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max + 1 - min)) + min;
-  }
+}
 
-function getRandomFeatures(){
+function getRandomFeatures() {
   var randFeatures = [];
   var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var size = features.length;
@@ -19,7 +19,7 @@ function getRandomFeatures(){
 
     }
   }
-    return randFeatures;
+  return randFeatures;
 }
 
 function getObject(n) {
@@ -29,7 +29,6 @@ function getObject(n) {
   var checkin = ['12:00', '13:00', '14:00'];
   var checkout = ['12:00', '13:00', '14:00'];
   var photos = [];
-  var maxSteep = features.length;
 
   for (var i = 0; i < n; i++) {
     objects.push({
@@ -86,55 +85,48 @@ var lodgeTemplate = document.querySelector('#lodge-template').content;
 
 function getFeaturesType(local) {
   var featuresType = local.offer.features;
-  var result = [];
-var features = document.querySelector('.lodge__features');
+  var features = document.querySelector('.lodge__features');
   for (i = 0; i < featuresType.length; i++) {
     var span = document.createElement('span');
     span.classList.add('feature__image', 'feature__image--' + featuresType[i]);
     features.appendChild(span);
-    // result.push(span);
   }
-  // return result;
 }
 
 function getHouseType(local) {
   var type = local.offer.type;
   var typeName = '';
   switch (type) {
-  case "flat":
-          typeName = 'Квартира';
-    break;
-  case "house":
-          typeName =  'Дом'
-    break;
-  case "bungalo":
-          typeName = 'Бунгало'
-    break;
-  default:
-    console.log('Нет подходящих типов');
-}
+    case 'flat':
+      typeName = 'Квартира';
+      break;
+    case 'house':
+      typeName = 'Дом';
+      break;
+    case 'bungalo':
+      typeName = 'Бунгало';
+      break;
+  }
   return typeName;
 }
 
-var i = 0;
-//for (i = 0; i < objects.length; i++) {
-  var FeaturesType = getFeaturesType(objects[i]);
-  var houseType = getHouseType(objects[i]);
-  var objectElement = lodgeTemplate.cloneNode(true);
-  objectElement.querySelector('.lodge__title').textContent = objects[i].offer.title;
-  objectElement.querySelector('.lodge__address').textContent = objects[i].offer.address;
-  objectElement.querySelector('.lodge__price').textContent = objects[i].offer.price + '&#x20bd;/ночь';
-  objectElement.querySelector('.lodge__type').textContent = houseType;
-  objectElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + objects[i].offer.guests + ' гостей в ' + objects[i].offer.rooms + ' комнатах';
-  objectElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + objects[i].offer.checkin + ', выезд до ' + objects[i].offer.checkout;
-//  objectElement.querySelector('.lodge__features').textContent = FeaturesType;
-  objectElement.querySelector('.lodge__description').textContent = objects[i].offer.description;
+i = 0;
+var FeaturesType = getFeaturesType(objects[i]);
+var houseType = getHouseType(objects[i]);
+var objectElement = lodgeTemplate.cloneNode(true);
+objectElement.querySelector('.lodge__title').textContent = objects[i].offer.title;
+objectElement.querySelector('.lodge__address').textContent = objects[i].offer.address;
+objectElement.querySelector('.lodge__price').textContent = objects[i].offer.price + '&#x20bd;/ночь';
+objectElement.querySelector('.lodge__type').textContent = houseType;
+objectElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + objects[i].offer.guests + ' гостей в ' + objects[i].offer.rooms + ' комнатах';
+objectElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + objects[i].offer.checkin + ', выезд до ' + objects[i].offer.checkout;
+objectElement.querySelector('.lodge__features').textContent = FeaturesType;
+objectElement.querySelector('.lodge__description').textContent = objects[i].offer.description;
 
 
-  var dialogPanelElement = document.querySelector('.dialog__panel');
-  dialogPanelElement.innerHTML = objectElement;
+var dialogPanelElement = document.querySelector('.dialog__panel');
+dialogPanelElement.innerHTML = objectElement;
 
-  var dialogElement = document.querySelector('.dialog__title');
-  dialogElement.innerHTML = '<img src="' + objects[i].author.avatar + '" alt="Avatar" width="70" height="70">';
-  dialogElement.appendChild(objectElement);
-//}
+var dialogElement = document.querySelector('.dialog__title');
+dialogElement.innerHTML = '<img src="' + objects[i].author.avatar + '" alt="Avatar" width="70" height="70">';
+dialogElement.appendChild(objectElement);
