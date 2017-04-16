@@ -126,18 +126,17 @@ function renderDialogPanel(local) {
 }
 
 renderDialogPanel(ads[0]);
-
 var tokyoPinMap = document.querySelector('.tokyo__pin-map');
-var pinMap = tokyoPinMap.querySelector('.pin');
+var pinMap = tokyoPinMap.querySelectorAll('.pin');
 tokyoPinMap.addEventListener('click', function (evt) {
   var target = evt.target;
-  if (target.tagName === 'pin') {
+  if (target.className === 'pin') {
     pinMapTarget(target);
   }
 });
 
 function pinMapTarget(set) {
-  if (pinMap) {
+  if (pinMap.classList === 'pin--active') {
     pinMap.classList.remove('pin--active');
   }
   pinMap = set;
