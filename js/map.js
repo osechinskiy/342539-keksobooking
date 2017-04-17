@@ -126,8 +126,10 @@ function renderDialogPanel(local) {
 }
 
 renderDialogPanel(ads[0]);
+
 var tokyoPinMap = document.querySelector('.tokyo__pin-map');
-var pinMap = tokyoPinMap.querySelectorAll('.pin');
+var pinMap = tokyoPinMap.querySelector('.pin');
+var pinIndex = tokyoPinMap.querySelectorAll('.pin');
 tokyoPinMap.addEventListener('click', function (evt) {
   var target = evt.target;
   if (target.className === 'pin') {
@@ -136,9 +138,16 @@ tokyoPinMap.addEventListener('click', function (evt) {
 });
 
 function pinMapTarget(set) {
-  if (pinMap.classList === 'pin--active') {
-    pinMap.classList.remove('pin--active');
+  var pinActiv = tokyoPinMap.querySelector('.pin--active');
+  if (pinActiv !== null) {
+    pinActiv.classList.remove('pin--active');
   }
   pinMap = set;
   pinMap.classList.add('pin--active');
+  for (var i = 0; i < pinIndex.length; i++) {
+    if (pinIndex[i].classList.contains('pin--active') !== false) {
+      var dialogCard = i - 1;
+      renderDialogPanel(ads[dialogCard]);
+    }
+  }
 }
