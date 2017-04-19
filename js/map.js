@@ -59,6 +59,8 @@ function generatePin(local) {
   var newFragment = document.querySelector('.tokyo__pin-map');
   for (var i = 0; i < local.length; i++) {
     var newElement = document.createElement('div');
+    newElement.setAttribute('id', 'data');
+    newElement.setAttribute('data-index', i);
     newElement.className = 'pin';
     newElement.style.left = ads[i].location.x + 'px';
     newElement.style.top = ads[i].location.y + 'px';
@@ -128,26 +130,24 @@ function renderDialogPanel(local) {
 renderDialogPanel(ads[0]);
 
 var tokyoPinMap = document.querySelector('.tokyo__pin-map');
-var pinMap = tokyoPinMap.querySelector('.pin');
 var pinIndex = tokyoPinMap.querySelectorAll('.pin');
 var dialog = document.querySelector('#offer-dialog');
 var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
-var dialogClose = dialog.querySelector('.dialog__close');
+var dialogClose = dialog.querySelector('.dialog__close')
 
 function getTarget(evt) {
   var target = evt.currentTarget;
-  openWindow();
   var pinActiv = tokyoPinMap.querySelector('.pin--active');
   if (pinActiv !== null) {
     pinActiv.classList.remove('pin--active');
   }
-  pinMap = target;
-  pinMap.classList.add('pin--active');
+  var pin = target.dataset.index;
+  target.classList.add('pin--active');
   for (var i = 0; i < pinIndex.length; i++) {
     if (pinIndex[i].classList.contains('pin--active') !== false) {
-      var dialogCard = i - 1;
-      renderDialogPanel(ads[dialogCard]);
+      renderDialogPanel(ads[pin]);
+      openWindow();
     }
   }
 }
@@ -189,9 +189,6 @@ document.addEventListener('keydown', function (evt) {
     delActivPin();
     closeWindow();
   }
-});
-
-dialogClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
     delActivPin();
     closeWindow();
