@@ -134,7 +134,7 @@ var pinIndex = tokyoPinMap.querySelectorAll('.pin');
 var dialog = document.querySelector('#offer-dialog');
 var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
-var dialogClose = dialog.querySelector('.dialog__close')
+var dialogClose = dialog.querySelector('.dialog__close');
 
 function getTarget(evt) {
   var target = evt.currentTarget;
