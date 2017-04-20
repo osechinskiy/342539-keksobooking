@@ -143,9 +143,11 @@ function getTarget(evt) {
     pinActiv.classList.remove('pin--active');
   }
   var pin = target.dataset.index;
-  target.classList.add('pin--active');
-  renderDialogPanel(ads[pin]);
-  openWindow();
+  if (pin) {
+    target.classList.add('pin--active');
+    renderDialogPanel(ads[pin]);
+    openWindow();
+  }
 }
 
 function closeWindow() {
