@@ -157,8 +157,9 @@ function openWindow() {
 }
 
 function delActivPin() {
-    if (tokyoPinMap.querySelector('pin--active')) {
-      tokyoPinMap.classList.remove('pin--active');
+  var pinActiv = tokyoPinMap.querySelector('.pin--active');
+  if (pinActiv !== null) {
+    pinActiv.classList.remove('pin--active');
   }
 }
 
