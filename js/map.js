@@ -59,10 +59,12 @@ function generatePin(local) {
   var newFragment = document.querySelector('.tokyo__pin-map');
   for (var i = 0; i < local.length; i++) {
     var newElement = document.createElement('div');
+    newElement.setAttribute('id', 'data');
+    newElement.setAttribute('data-index', i);
     newElement.className = 'pin';
     newElement.style.left = ads[i].location.x + 'px';
     newElement.style.top = ads[i].location.y + 'px';
-    newElement.innerHTML = '<img src="' + ads[i].author.avatar + '" class="rounded" width="40" height="40">';
+    newElement.innerHTML = '<img src="' + ads[i].author.avatar + '" class="rounded" width="40" height="40" tabindex="0">';
 
     fragment.appendChild(newElement);
   }
@@ -126,3 +128,69 @@ function renderDialogPanel(local) {
 }
 
 renderDialogPanel(ads[0]);
+
+var tokyoPinMap = document.querySelector('.tokyo__pin-map');
+var pinIndex = tokyoPinMap.querySelectorAll('.pin');
+var dialog = document.querySelector('#offer-dialog');
+var ENTER_KEY_CODE = 13;
+var ESC_KEY_CODE = 27;
+var dialogClose = dialog.querySelector('.dialog__close');
+
+function getTarget(evt) {
+  var target = evt.currentTarget;
+  var pinActiv = tokyoPinMap.querySelector('.pin--active');
+  if (pinActiv !== null) {
+    pinActiv.classList.remove('pin--active');
+  }
+  var pin = target.dataset.index;
+  if (pin) {
+    target.classList.add('pin--active');
+    renderDialogPanel(ads[pin]);
+    openWindow();
+  }
+}
+
+function closeWindow() {
+  dialog.classList.add('hidden');
+}
+
+function openWindow() {
+  dialog.classList.remove('hidden');
+}
+
+function delActivPin() {
+  var pinActiv = tokyoPinMap.querySelector('.pin--active');
+  if (pinActiv !== null) {
+    pinActiv.classList.remove('pin--active');
+  }
+}
+
+closeWindow();
+
+for (var i = 0; i < pinIndex.length; i++) {
+  pinIndex[i].addEventListener('click', getTarget);
+  pinIndex[i].addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEY_CODE) {
+      getTarget(evt);
+    }
+  });
+}
+
+dialogClose.addEventListener('click', function () {
+  closeWindow();
+  delActivPin();
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEY_CODE) {
+    delActivPin();
+    closeWindow();
+  }
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    delActivPin();
+    closeWindow();
+  }
+});
