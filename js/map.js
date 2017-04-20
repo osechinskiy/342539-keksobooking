@@ -194,3 +194,74 @@ dialogClose.addEventListener('keydown', function (evt) {
     closeWindow();
   }
 });
+var type = document.getElementById('type');
+var time = document.getElementById('time');
+var timeout = document.getElementById('timeout');
+var capacity = document.getElementById('capacity');
+var rooms = document.getElementById('room_number');
+var title = document.getElementById('title');
+var price = document.getElementById('price');
+var submit = document.querySelector('.form__submit');
+
+function validationTitle() {
+  title.required = true;
+  title.maxlength = 100;
+  title.minlength = 30;
+}
+
+function validationPrice() {
+  price.required = true;
+  price.type = 'number';
+  price.min = 1000;
+  price.max = 1000000;
+  price.placeholder = 1000;
+}
+
+function autoCorrectTime(timeF, timeS) {
+  for (i = 0; i < timeF.options.length; i++) {
+    var optionFitst = timeF.options[i];
+    if (optionFitst.selected) {
+      var optionTimeSecond = timeS.options[i];
+      optionTimeSecond.selected = true;
+    }
+  }
+}
+
+function autoCorrectPrice() {
+  if (type.options[0].selected) {
+    price.min = 1000;
+    price.placeholder = 1000;
+  }
+  if (type.options[1].selected) {
+    price.min = 0;
+    price.placeholder = 0;
+  }
+  if (type.options[2].selected) {
+    price.min = 10000;
+    price.placeholder = 10000;
+  }
+}
+
+function autoCorrectRooms() {
+  if (rooms.options[0].selected) {
+    capacity.options[1].selected = true;
+  }
+
+  if (rooms.options[1].selected || rooms.options[2].selected) {
+    capacity.options[0].selected = true;
+  }
+}
+
+function submitValidity() {
+  if (title.valid === false) {
+    title.style.border = '2px solid red';
+  }
+}
+
+title.addEventListener('change', validationTitle);
+price.addEventListener('change', validationPrice);
+type.addEventListener('change', autoCorrectPrice);
+time.addEventListener('change', autoCorrectTime(time, timeout));
+timeout.addEventListener('change', autoCorrectTime(timeout, time));
+rooms.addEventListener('change', autoCorrectRooms);
+submit.addEventListener('click', submitValidity);
