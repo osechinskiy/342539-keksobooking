@@ -144,12 +144,8 @@ function getTarget(evt) {
   }
   var pin = target.dataset.index;
   target.classList.add('pin--active');
-  for (var i = 0; i < pinIndex.length; i++) {
-    if (pinIndex[i].classList.contains('pin--active') !== false) {
-      renderDialogPanel(ads[pin]);
-      openWindow();
-    }
-  }
+  renderDialogPanel(ads[pin]);
+  openWindow();
 }
 
 function closeWindow() {
@@ -161,10 +157,8 @@ function openWindow() {
 }
 
 function delActivPin() {
-  for (var i = 0; i < pinIndex.length; i++) {
-    if (pinIndex[i].classList.contains('pin--active') !== false) {
-      pinIndex[i].classList.remove('pin--active');
-    }
+  if (pinIndex.querySelector('pin--active')) {
+    pinIndex.classList.remove('pin--active');
   }
 }
 
@@ -189,6 +183,9 @@ document.addEventListener('keydown', function (evt) {
     delActivPin();
     closeWindow();
   }
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
     delActivPin();
     closeWindow();
