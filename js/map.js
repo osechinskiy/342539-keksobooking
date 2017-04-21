@@ -201,48 +201,55 @@ var capacity = document.getElementById('capacity');
 var rooms = document.getElementById('room_number');
 var title = document.getElementById('title');
 var price = document.getElementById('price');
-var submit = document.querySelector('.form__submit');
 
-function validationTitle() {
+function checkTitle() {
   title.required = true;
   title.maxlength = 100;
   title.minlength = 30;
 }
 
-function validationPrice() {
+function checkPrice() {
   price.required = true;
   price.type = 'number';
-  price.min = 1000;
-  price.max = 1000000;
-  price.placeholder = 1000;
+
 }
 
-function autoCorrectTime(timeF, timeS) {
-  for (i = 0; i < timeF.options.length; i++) {
-    var optionFitst = timeF.options[i];
+function autoСorrectionTime() {
+  for (i = 0; i < time.options.length; i++) {
+    var optionFitst = time.options[i];
     if (optionFitst.selected) {
-      var optionTimeSecond = timeS.options[i];
+      var optionTimeSecond = timeout.options[i];
       optionTimeSecond.selected = true;
     }
   }
 }
 
-function autoCorrectPrice() {
-  if (type.options[0].selected) {
-    price.min = 1000;
-    price.placeholder = 1000;
-  }
-  if (type.options[1].selected) {
-    price.min = 0;
-    price.placeholder = 0;
-  }
-  if (type.options[2].selected) {
-    price.min = 10000;
-    price.placeholder = 10000;
+function autoСorrectionTimeOut() {
+  for (i = 0; i < timeout.options.length; i++) {
+    var optionFitst = timeout.options[i];
+    if (optionFitst.selected) {
+      var optionTimeSecond = time.options[i];
+      optionTimeSecond.selected = true;
+    }
   }
 }
 
-function autoCorrectRooms() {
+function autoСorrectionPrice() {
+  if (type.options[0].selected) {
+    price.min = 1000;
+    price.value = 1000;
+  }
+  if (type.options[1].selected) {
+    price.min = 0;
+    price.value = 0;
+  }
+  if (type.options[2].selected) {
+    price.min = 10000;
+    price.value = 10000;
+  }
+}
+
+function autoСorrectionRooms() {
   if (rooms.options[0].selected) {
     capacity.options[1].selected = true;
   }
@@ -252,16 +259,27 @@ function autoCorrectRooms() {
   }
 }
 
-function submitValidity() {
-  if (title.valid === false) {
-    title.style.border = '2px solid red';
-  }
-}
+var noticeForm = document.querySelector('.notice__form');
 
-title.addEventListener('change', validationTitle);
-price.addEventListener('change', validationPrice);
-type.addEventListener('change', autoCorrectPrice);
-time.addEventListener('change', autoCorrectTime(time, timeout));
-timeout.addEventListener('change', autoCorrectTime(timeout, time));
-rooms.addEventListener('change', autoCorrectRooms);
-submit.addEventListener('click', submitValidity);
+title.addEventListener('change', checkTitle);
+price.addEventListener('change', checkPrice);
+type.addEventListener('change', autoСorrectionPrice);
+time.addEventListener('change', autoСorrectionTime);
+timeout.addEventListener('change', autoСorrectionTimeOut);
+rooms.addEventListener('change', autoСorrectionRooms);
+noticeForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (title.validity.valid === false) {
+    title.style.border = '5px solid red';
+  } else {
+    title.style.border = 'none';
+  }
+  if (price.validity.valid === false) {
+    price.style.border = '5px solid red';
+  } else {
+    price.style.border = 'none';
+  }
+
+  noticeForm.reset();
+
+});
