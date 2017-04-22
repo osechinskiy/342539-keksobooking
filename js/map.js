@@ -197,41 +197,36 @@ dialogClose.addEventListener('keydown', function (evt) {
 var type = document.getElementById('type');
 var time = document.getElementById('time');
 var timeout = document.getElementById('timeout');
-var capacity = document.getElementById('capacity');
 var rooms = document.getElementById('room_number');
 var title = document.getElementById('title');
 var price = document.getElementById('price');
 
 function checkTitle() {
-  title.required = true;
-  title.maxlength = 100;
-  title.minlength = 30;
+  var titleValue = document.getElementById('title').value;
+  if (titleValue.length < 30 || titleValue.length > 100) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function checkPrice() {
-  price.required = true;
-  price.type = 'number';
-
+  var priceValue = document.getElementById('price').value;
+  if (priceValue < 1000 || priceValue > 1000000) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function autoСorrectionTime() {
-  for (i = 0; i < time.options.length; i++) {
-    var optionFitst = time.options[i];
-    if (optionFitst.selected) {
-      var optionTimeSecond = timeout.options[i];
-      optionTimeSecond.selected = true;
-    }
-  }
+  var index = event.target.selectedIndex;
+  timeout.selectedIndex = index;
 }
 
 function autoСorrectionTimeOut() {
-  for (i = 0; i < timeout.options.length; i++) {
-    var optionFitst = timeout.options[i];
-    if (optionFitst.selected) {
-      var optionTimeSecond = time.options[i];
-      optionTimeSecond.selected = true;
-    }
-  }
+  var index = event.target.selectedIndex;
+  time.selectedIndex = index;
 }
 
 function autoСorrectionPrice() {
@@ -250,11 +245,13 @@ function autoСorrectionPrice() {
 }
 
 function autoСorrectionRooms() {
-  if (rooms.options[0].selected) {
+  var capacity = document.getElementById('capacity');
+  var roomsValue = document.getElementById('room_number').value;
+
+  if (roomsValue === 1) {
     capacity.options[1].selected = true;
   }
-
-  if (rooms.options[1].selected || rooms.options[2].selected) {
+  if (roomsValue === 2 || roomsValue === 100) {
     capacity.options[0].selected = true;
   }
 }
@@ -268,18 +265,18 @@ time.addEventListener('change', autoСorrectionTime);
 timeout.addEventListener('change', autoСorrectionTimeOut);
 rooms.addEventListener('change', autoСorrectionRooms);
 noticeForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  if (title.validity.valid === false) {
-    title.style.border = '5px solid red';
+  if (checkTitle() === false) {
+    e.preventDefault();
+    title.style.borderColor = 'red';
   } else {
-    title.style.border = 'none';
+    noticeForm.reset();
+    title.style.borderColor = '#d9d9d3';
   }
-  if (price.validity.valid === false) {
-    price.style.border = '5px solid red';
+  if (checkPrice() === false) {
+    e.preventDefault();
+    price.style.borderColor = 'red';
   } else {
-    price.style.border = 'none';
+    noticeForm.reset();
+    price.style.borderColor = '#d9d9d3';
   }
-
-  noticeForm.reset();
-
 });
