@@ -165,15 +165,31 @@ function delActivPin() {
   }
 }
 
+function enterKeyOpen(evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    getTarget(evt);
+  }
+}
+
+function enterKeyClose(evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    delActivPin();
+    closeWindow();
+  }
+}
+
+function escKeyClose(evt) {
+  if (evt.keyCode === ESC_KEY_CODE) {
+    delActivPin();
+    closeWindow();
+  }
+}
+
 closeWindow();
 
 for (var i = 0; i < pinIndex.length; i++) {
   pinIndex[i].addEventListener('click', getTarget);
-  pinIndex[i].addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEY_CODE) {
-      getTarget(evt);
-    }
-  });
+  pinIndex[i].addEventListener('keydown', enterKeyOpen);
 }
 
 dialogClose.addEventListener('click', function () {
@@ -181,19 +197,9 @@ dialogClose.addEventListener('click', function () {
   delActivPin();
 });
 
-document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC_KEY_CODE) {
-    delActivPin();
-    closeWindow();
-  }
-});
+document.addEventListener('keydown', escKeyClose);
 
-dialogClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
-    delActivPin();
-    closeWindow();
-  }
-});
+dialogClose.addEventListener('keydown', enterKeyClose);
 var type = document.getElementById('type');
 var checkIn = document.getElementById('time');
 var checkOut = document.getElementById('timeout');
