@@ -195,38 +195,30 @@ dialogClose.addEventListener('keydown', function (evt) {
   }
 });
 var type = document.getElementById('type');
-var time = document.getElementById('time');
-var timeout = document.getElementById('timeout');
+var checkIn = document.getElementById('time');
+var checkOut = document.getElementById('timeout');
 var rooms = document.getElementById('room_number');
 var title = document.getElementById('title');
 var price = document.getElementById('price');
 
 function checkTitle() {
   var titleValue = document.getElementById('title').value;
-  if (titleValue.length < 30 || titleValue.length > 100) {
-    return false;
-  } else {
-    return true;
-  }
+  return (titleValue.length < 30 || titleValue.length > 100);
 }
 
 function checkPrice() {
   var priceValue = document.getElementById('price').value;
-  if (priceValue < 1000 || priceValue > 1000000) {
-    return false;
-  } else {
-    return true;
-  }
+  return priceValue < price.min || priceValue > 1000000;
 }
 
-function autoСorrectionTime() {
+function autoСorrectionCheckIn() {
   var index = event.target.selectedIndex;
-  timeout.selectedIndex = index;
+  checkOut.selectedIndex = index;
 }
 
-function autoСorrectionTimeOut() {
+function autoСorrectionСheckOut() {
   var index = event.target.selectedIndex;
-  time.selectedIndex = index;
+  checkIn.selectedIndex = index;
 }
 
 function autoСorrectionPrice() {
@@ -257,22 +249,21 @@ function autoСorrectionRooms() {
 }
 
 var noticeForm = document.querySelector('.notice__form');
-
 title.addEventListener('change', checkTitle);
 price.addEventListener('change', checkPrice);
 type.addEventListener('change', autoСorrectionPrice);
-time.addEventListener('change', autoСorrectionTime);
-timeout.addEventListener('change', autoСorrectionTimeOut);
+checkIn.addEventListener('change', autoСorrectionCheckIn);
+checkOut.addEventListener('change', autoСorrectionСheckOut);
 rooms.addEventListener('change', autoСorrectionRooms);
 noticeForm.addEventListener('submit', function (e) {
-  if (checkTitle() === false) {
+  if (checkTitle() === true) {
     e.preventDefault();
     title.style.borderColor = 'red';
   } else {
     noticeForm.reset();
     title.style.borderColor = '#d9d9d3';
   }
-  if (checkPrice() === false) {
+  if (checkPrice() === true) {
     e.preventDefault();
     price.style.borderColor = 'red';
   } else {
