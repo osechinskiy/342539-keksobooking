@@ -4,13 +4,15 @@ window.form = (function () {
   var type = document.getElementById('type');
   var checkIn = document.getElementById('time');
   var checkOut = document.getElementById('timeout');
+  var rooms = document.getElementById('room_number');
   var title = document.getElementById('title');
   var price = document.getElementById('price');
   var noticeForm = document.querySelector('.notice__form');
 
+
   var checkTitle = function () {
     var titleValue = document.getElementById('title').value;
-    return (titleValue.length < 30 || titleValue.length > 100);
+    return !(titleValue.length < 30 || titleValue.length > 100);
   };
 
   var checkPrice = function () {
@@ -55,15 +57,15 @@ window.form = (function () {
     }
   };
 
-  var formValidity = function (e) {
-    if (checkTitle() === true) {
+  var formSubmit = function (e) {
+    if (checkTitle()) {
       e.preventDefault();
       title.style.borderColor = 'red';
     } else {
       noticeForm.reset();
       title.style.borderColor = '#d9d9d3';
     }
-    if (checkPrice() === true) {
+    if (checkPrice()) {
       e.preventDefault();
       price.style.borderColor = 'red';
     } else {
@@ -72,13 +74,17 @@ window.form = (function () {
     }
   };
 
+  var formValidity = function () {
+    title.addEventListener('change', checkTitle);
+    price.addEventListener('change', checkPrice);
+    type.addEventListener('change', autoСorrectionPrice);
+    checkIn.addEventListener('change', autoСorrectionCheckIn);
+    checkOut.addEventListener('change', autoСorrectionСheckOut);
+    rooms.addEventListener('change', autoСorrectionRooms);
+    noticeForm.addEventListener('submit', formSubmit);
+  };
+
   return {
-    checkTitle: checkTitle,
-    checkPrice: checkPrice,
-    autoСorrectionCheckIn: autoСorrectionCheckIn,
-    autoСorrectionСheckOut: autoСorrectionСheckOut,
-    autoСorrectionPrice: autoСorrectionPrice,
-    autoСorrectionRooms: autoСorrectionRooms,
     formValidity: formValidity
   };
 })();

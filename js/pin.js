@@ -5,6 +5,8 @@ window.pin = (function () {
   var newFragment = document.querySelector('.tokyo__pin-map');
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var dialog = document.querySelector('#offer-dialog');
+  var pinIndex = tokyoPinMap.querySelectorAll('.pin');
+  var dialogClose = document.querySelector('.dialog__close');
   var ENTER_KEY_CODE = 13;
   var ESC_KEY_CODE = 27;
 
@@ -32,7 +34,7 @@ window.pin = (function () {
     var pin = target.dataset.index;
     if (pin) {
       target.classList.add('pin--active');
-      window.card.renderDialogPanel(window.generateAds[pin]);
+      window.card.renderDialogPanel(window.data.adsElement[pin]);
       openWindow();
     }
   };
@@ -72,13 +74,28 @@ window.pin = (function () {
     }
   };
 
+  var openCard = function () {
+    pinIndex = tokyoPinMap.querySelectorAll('.pin');
+    for (var i = 0; i < pinIndex.length; i++) {
+      pinIndex[i].addEventListener('click', getTarget);
+      pinIndex[i].addEventListener('keydown', enterKeyOpen);
+    }
+  };
+
+  var closeDialog = function () {
+    dialogClose.addEventListener('click', function () {
+      closeWindow();
+      delActivPin();
+    });
+    document.addEventListener('keydown', escKeyClose);
+    dialogClose.addEventListener('keydown', enterKeyClose);
+  };
+
   return {
     generatePin: generatePin,
-    getTarget: getTarget,
-    enterKeyOpen: enterKeyOpen,
-    enterKeyClose: enterKeyClose,
-    closeWindow: closeWindow,
-    delActivPin: delActivPin,
-    escKeyClose: escKeyClose
+    openCard: openCard,
+    closeDialog: closeDialog,
+    closeWindow: closeWindow
+
   };
 })();

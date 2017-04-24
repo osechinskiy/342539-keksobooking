@@ -1,21 +1,21 @@
 'use strict';
 
 window.data = (function () {
-
   var randFeatures = [];
   var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var ads = [];
   var title = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
   var type = ['flat', 'house', 'bungalo'];
   var checkin = ['12:00', '13:00', '14:00'];
   var checkout = ['12:00', '13:00', '14:00'];
   var photos = [];
+  var ads = [];
 
   var generateRandomInt = function (min, max) {
     return Math.floor(Math.random() * (max + 1 - min)) + min;
   };
 
   var generateRandomFeatures = function () {
+    randFeatures = [];
     for (var i = 0; i < features.length; i++) {
       if (generateRandomInt(0, 1)) {
         randFeatures.push(features[i]);
@@ -55,9 +55,11 @@ window.data = (function () {
     return ads;
   };
 
+
   return {
     generateRandomInt: generateRandomInt,
     generateRandomFeatures: generateRandomFeatures,
-    generateAds: generateAds
+    generateAds: generateAds,
+    adsElement: generateAds(8)
   };
 })();
