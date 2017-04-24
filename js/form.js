@@ -12,12 +12,12 @@ window.form = (function () {
 
   var checkTitle = function () {
     var titleValue = document.getElementById('title').value;
-    return !(titleValue.length < 30 || titleValue.length > 100);
+    return !(titleValue.length > 30 && titleValue.length < 100);
   };
 
   var checkPrice = function () {
     var priceValue = document.getElementById('price').value;
-    return priceValue < price.min || priceValue > 1000000;
+    return !(priceValue > price.min && priceValue < 1000000);
   };
 
   var autoСorrectionCheckIn = function () {
