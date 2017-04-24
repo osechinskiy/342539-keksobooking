@@ -12,13 +12,9 @@ window.form = (function () {
 
   var checkTitle = function () {
     var titleValue = document.getElementById('title').value;
-    return !(titleValue.length > 30 && titleValue.length < 100);
+    return (titleValue.length > 30 && titleValue.length < 100);
   };
 
-  var checkPrice = function () {
-    var priceValue = document.getElementById('price').value;
-    return !(priceValue > price.min && priceValue < 1000000);
-  };
 
   var autoСorrectionCheckIn = function () {
     var index = event.target.selectedIndex;
@@ -45,6 +41,10 @@ window.form = (function () {
     }
   };
 
+  var checkPrice = function () {
+    return !(price.value > price.min && price.value < 1000000);
+  };
+
   var autoСorrectionRooms = function () {
     var capacity = document.getElementById('capacity');
     var roomsValue = document.getElementById('room_number').value;
@@ -58,19 +58,20 @@ window.form = (function () {
   };
 
   var formSubmit = function (e) {
-    if (checkTitle()) {
+    var errorFound = false;
+    if (checkTitle() && checkPrice()) {
+      errorFound = false;
+    } else {
+      errorFound = true;
+    }
+    if (errorFound !== true) {
+      price.style.borderColor = '#d9d9d3';
+      title.style.borderColor = '#d9d9d3';
+      noticeForm.reset();
+    } else {
       e.preventDefault();
       title.style.borderColor = 'red';
-    } else {
-      noticeForm.reset();
-      title.style.borderColor = '#d9d9d3';
-    }
-    if (checkPrice()) {
-      e.preventDefault();
       price.style.borderColor = 'red';
-    } else {
-      noticeForm.reset();
-      price.style.borderColor = '#d9d9d3';
     }
   };
 
