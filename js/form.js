@@ -58,20 +58,26 @@ window.form = (function () {
   };
 
   var formSubmit = function (e) {
-    var errorFound = false;
-    if (checkTitle() && checkPrice()) {
-      errorFound = false;
-    } else {
-      errorFound = true;
-    }
-    if (errorFound !== true) {
+    var errorTitleFound = false;
+    var errorPriceFound = false;
+    if (checkTitle()) {
       price.style.borderColor = '#d9d9d3';
-      title.style.borderColor = '#d9d9d3';
+      errorTitleFound = false;
+    } else {
+      title.style.borderColor = 'red';
+      errorTitleFound = true;
+    }
+    if (checkPrice()) {
+      price.style.borderColor = '#d9d9d3';
+      errorPriceFound = false;
+    } else {
+      price.style.borderColor = 'red';
+      errorPriceFound = true;
+    }
+    if (errorTitleFound !== true && errorPriceFound !== true) {
       noticeForm.reset();
     } else {
       e.preventDefault();
-      title.style.borderColor = 'red';
-      price.style.borderColor = 'red';
     }
   };
 
