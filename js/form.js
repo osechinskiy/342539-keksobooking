@@ -15,34 +15,26 @@ window.form = (function () {
     return (titleValue.length > 30 && titleValue.length < 100);
   };
 
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
 
   var autoСorrectionCheckIn = function () {
-    var index = event.target.selectedIndex;
-    checkOut.selectedIndex = index;
+    window.synchronizeFields(checkIn, checkOut, ['12', '13', '14'], ['12', '13', '14'], syncValues);
   };
 
   var autoСorrectionСheckOut = function () {
-    var index = event.target.selectedIndex;
-    checkIn.selectedIndex = index;
+    window.synchronizeFields(checkOut, checkIn, ['12', '13', '14'], ['12', '13', '14'], syncValues);
+  };
+
+
+  var syncValueWithMin = function (element, value) {
+    element.min = value;
+    element.value = value;
   };
 
   var autoСorrectionPrice = function () {
-    switch (type.value) {
-      case 'flat': {
-        price.min = 1000;
-        price.value = 1000;
-      }
-        break;
-      case 'shack': {
-        price.min = 0;
-        price.value = 0;
-      }
-        break;
-      case 'palace': {
-        price.min = 10000;
-        price.value = 10000;
-      }
-    }
+    window.synchronizeFields(type, price, ['flat', 'shack', 'palace'], [1000, 0, 10000], syncValueWithMin);
   };
 
   var checkPrice = function () {
