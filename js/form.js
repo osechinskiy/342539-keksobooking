@@ -27,22 +27,26 @@ window.form = (function () {
   };
 
   var autoСorrectionPrice = function () {
-    if (type.options[0].selected) {
-      price.min = 1000;
-      price.value = 1000;
-    }
-    if (type.options[1].selected) {
-      price.min = 0;
-      price.value = 0;
-    }
-    if (type.options[2].selected) {
-      price.min = 10000;
-      price.value = 10000;
+    switch (type.value) {
+      case 'flat': {
+        price.min = 1000;
+        price.value = 1000;
+      }
+        break;
+      case 'shack': {
+        price.min = 0;
+        price.value = 0;
+      }
+        break;
+      case 'palace': {
+        price.min = 10000;
+        price.value = 10000;
+      }
     }
   };
 
   var checkPrice = function () {
-    return !(price.value > price.min && price.value < 1000000);
+    return (price.value >= price.min && price.value <= 1000000);
   };
 
   var autoСorrectionRooms = function () {
@@ -58,26 +62,26 @@ window.form = (function () {
   };
 
   var formSubmit = function (e) {
-    var errorTitleFound = false;
-    var errorPriceFound = false;
-    if (checkTitle()) {
-      price.style.borderColor = '#d9d9d3';
-      errorTitleFound = false;
-    } else {
+    var errorFound = false;
+
+    if (!checkTitle()) {
+      errorFound = true;
       title.style.borderColor = 'red';
-      errorTitleFound = true;
-    }
-    if (checkPrice()) {
-      price.style.borderColor = '#d9d9d3';
-      errorPriceFound = false;
     } else {
+      title.style.borderColor = '#d9d9d3';
+    }
+
+    if (!checkPrice()) {
+      errorFound = true;
       price.style.borderColor = 'red';
-      errorPriceFound = true;
-    }
-    if (errorTitleFound !== true && errorPriceFound !== true) {
-      noticeForm.reset();
     } else {
+      price.style.borderColor = '#d9d9d3';
+    }
+
+    if (errorFound) {
       e.preventDefault();
+    } else {
+      noticeForm.reset();
     }
   };
 
