@@ -8,6 +8,7 @@ window.form = (function () {
   var title = document.getElementById('title');
   var price = document.getElementById('price');
   var noticeForm = document.querySelector('.notice__form');
+  var capacity = document.getElementById('capacity');
 
 
   var checkTitle = function () {
@@ -42,14 +43,20 @@ window.form = (function () {
   };
 
   var autoСorrectionRooms = function () {
-    var capacity = document.getElementById('capacity');
     var roomsValue = document.getElementById('room_number').value;
-
-    if (roomsValue === 1) {
-      capacity.options[1].selected = true;
-    }
-    if (roomsValue === 2 || roomsValue === 100) {
-      capacity.options[0].selected = true;
+    switch (roomsValue) {
+      case 'one': {
+        capacity.value = 'not';
+      }
+        break;
+      case 'two': {
+        capacity.value = 'guests';
+      }
+        break;
+      case 'hundred': {
+        capacity.value = 'guests';
+      }
+        break;
     }
   };
 
