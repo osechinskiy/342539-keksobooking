@@ -63,14 +63,12 @@ window.form = (function () {
 
   var formSubmit = function (e) {
     var errorFound = false;
-
     if (!checkTitle()) {
       errorFound = true;
       title.style.borderColor = 'red';
     } else {
       title.style.borderColor = '#d9d9d3';
     }
-
     if (!checkPrice()) {
       errorFound = true;
       price.style.borderColor = 'red';
