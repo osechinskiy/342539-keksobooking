@@ -34,7 +34,7 @@ window.pin = (function () {
     var pin = target.dataset.index;
     if (pin) {
       target.classList.add('pin--active');
-      window.card.renderDialogPanel(window.data.adsElement[pin]);
+      window.card.renderDialogPanel(window.adsElement[pin]);
       openWindow();
     }
   };
@@ -94,8 +94,8 @@ window.pin = (function () {
   return {
     generatePin: generatePin,
     openCard: openCard,
+    getTarget: getTarget,
     closeDialog: closeDialog,
     closeWindow: closeWindow
-
   };
 })();
