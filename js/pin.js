@@ -34,7 +34,7 @@ window.pin = (function () {
     var pin = target.dataset.index;
     if (pin) {
       target.classList.add('pin--active');
-      window.card.renderDialogPanel(window.data.adsElement[pin]);
+      window.card.renderDialogPanel(window.adsElement[pin]);
       openWindow();
     }
   };
@@ -75,11 +75,13 @@ window.pin = (function () {
   };
 
   var openCard = function () {
-    pinIndex = tokyoPinMap.querySelectorAll('.pin');
-    for (var i = 0; i < pinIndex.length; i++) {
-      pinIndex[i].addEventListener('click', getTarget);
-      pinIndex[i].addEventListener('keydown', enterKeyOpen);
-    }
+    tokyoPinMap.addEventListener('click', function () {
+      pinIndex = tokyoPinMap.querySelectorAll('.pin');
+      for (var i = 0; i < pinIndex.length; i++) {
+        pinIndex[i].addEventListener('click', getTarget);
+        pinIndex[i].addEventListener('keydown', enterKeyOpen);
+      }
+    });
   };
 
   var closeDialog = function () {
@@ -94,8 +96,8 @@ window.pin = (function () {
   return {
     generatePin: generatePin,
     openCard: openCard,
+    getTarget: getTarget,
     closeDialog: closeDialog,
     closeWindow: closeWindow
-
   };
 })();

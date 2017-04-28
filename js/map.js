@@ -1,14 +1,11 @@
 'use strict';
 
 (function () {
-  window.pin.generatePin(window.data.adsElement);
-  window.card.renderDialogPanel(window.data.adsElement[0]);
-
+  window.load.getData('https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data', window.data.generateAds);
 
   window.pin.closeWindow();
   window.pin.openCard();
   window.pin.closeDialog();
-
   window.form.formValidity();
 
   var pinHandle = document.querySelector('.pin__main');

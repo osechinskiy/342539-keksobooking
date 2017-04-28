@@ -57,9 +57,11 @@ window.card = (function () {
 
   };
 
+
   return {
     generateFeaturesType: generateFeaturesType,
     generateHouseType: generateHouseType,
-    renderDialogPanel: renderDialogPanel
+    renderDialogPanel: renderDialogPanel,
+
   };
 })();
