@@ -8,6 +8,7 @@ window.form = (function () {
   var title = document.getElementById('title');
   var price = document.getElementById('price');
   var noticeForm = document.querySelector('.notice__form');
+  var capacity = document.getElementById('capacity');
 
 
   var checkTitle = function () {
@@ -15,34 +16,26 @@ window.form = (function () {
     return (titleValue.length > 30 && titleValue.length < 100);
   };
 
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
 
   var autoСorrectionCheckIn = function () {
-    var index = event.target.selectedIndex;
-    checkOut.selectedIndex = index;
+    window.synchronizeFields(checkIn, checkOut, ['12', '13', '14'], ['12', '13', '14'], syncValues);
   };
 
   var autoСorrectionСheckOut = function () {
-    var index = event.target.selectedIndex;
-    checkIn.selectedIndex = index;
+    window.synchronizeFields(checkOut, checkIn, ['12', '13', '14'], ['12', '13', '14'], syncValues);
+  };
+
+
+  var syncValueAndMin = function (element, value) {
+    element.min = value;
+    element.value = value;
   };
 
   var autoСorrectionPrice = function () {
-    switch (type.value) {
-      case 'flat': {
-        price.min = 1000;
-        price.value = 1000;
-      }
-        break;
-      case 'shack': {
-        price.min = 0;
-        price.value = 0;
-      }
-        break;
-      case 'palace': {
-        price.min = 10000;
-        price.value = 10000;
-      }
-    }
+    window.synchronizeFields(type, price, ['flat', 'shack', 'palace'], [1000, 0, 10000], syncValueAndMin);
   };
 
   var checkPrice = function () {
@@ -50,15 +43,7 @@ window.form = (function () {
   };
 
   var autoСorrectionRooms = function () {
-    var capacity = document.getElementById('capacity');
-    var roomsValue = document.getElementById('room_number').value;
-
-    if (roomsValue === 1) {
-      capacity.options[1].selected = true;
-    }
-    if (roomsValue === 2 || roomsValue === 100) {
-      capacity.options[0].selected = true;
-    }
+    window.synchronizeFields(rooms, capacity, ['1', '2', '100'], ['0', '3', '3'], syncValues);
   };
 
   var formSubmit = function (e) {
