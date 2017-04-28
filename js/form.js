@@ -42,12 +42,8 @@ window.form = (function () {
     return (price.value >= price.min && price.value <= 1000000);
   };
 
-  var syncRoomsValues = function (element, value) {
-    element.value = value;
-  };
-
   var autoСorrectionRooms = function () {
-    window.synchronizeFields(rooms, capacity, ['1', '2', '100'], ['0', '3', '3'], syncRoomsValues);
+    window.synchronizeFields(rooms, capacity, ['1', '2', '100'], ['0', '3', '3'], syncValues);
   };
 
   var formSubmit = function (e) {
