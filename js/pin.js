@@ -9,6 +9,8 @@ window.pin = (function () {
   var dialogClose = document.querySelector('.dialog__close');
   var ENTER_KEY_CODE = 13;
   var ESC_KEY_CODE = 27;
+  var pinWidth = 74;
+  var pinHeight = 94;
 
   var generatePin = function (local) {
     for (var i = 0; i < local.length; i++) {
@@ -16,8 +18,8 @@ window.pin = (function () {
       newElement.setAttribute('id', 'data');
       newElement.setAttribute('data-index', i);
       newElement.className = 'pin';
-      newElement.style.left = local[i].location.x + 'px';
-      newElement.style.top = local[i].location.y + 'px';
+      newElement.style.left = local[i].location.x + (pinWidth / 2) + 'px';
+      newElement.style.top = local[i].location.y - pinHeight + 'px';
       newElement.innerHTML = '<img src="' + local[i].author.avatar + '" class="rounded" width="40" height="40" tabindex="0">';
 
       fragment.appendChild(newElement);
