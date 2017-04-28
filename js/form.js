@@ -29,35 +29,25 @@ window.form = (function () {
   };
 
 
-  var syncValueWithMin = function (element, value) {
+  var syncValueAndMin = function (element, value) {
     element.min = value;
     element.value = value;
   };
 
   var autoСorrectionPrice = function () {
-    window.synchronizeFields(type, price, ['flat', 'shack', 'palace'], [1000, 0, 10000], syncValueWithMin);
+    window.synchronizeFields(type, price, ['flat', 'shack', 'palace'], [1000, 0, 10000], syncValueAndMin);
   };
 
   var checkPrice = function () {
     return (price.value >= price.min && price.value <= 1000000);
   };
 
+  var syncRoomsValues = function (element, value) {
+    element.value = value;
+  };
+
   var autoСorrectionRooms = function () {
-    var roomsValue = document.getElementById('room_number').value;
-    switch (roomsValue) {
-      case 'one': {
-        capacity.value = 'not';
-      }
-        break;
-      case 'two': {
-        capacity.value = 'guests';
-      }
-        break;
-      case 'hundred': {
-        capacity.value = 'guests';
-      }
-        break;
-    }
+    window.synchronizeFields(rooms, capacity, ['1', '2', '100'], ['0', '3', '3'], syncRoomsValues);
   };
 
   var formSubmit = function (e) {
