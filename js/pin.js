@@ -75,13 +75,11 @@ window.pin = (function () {
   };
 
   var openCard = function () {
-    tokyoPinMap.addEventListener('click', function () {
-      pinIndex = tokyoPinMap.querySelectorAll('.pin');
-      for (var i = 0; i < pinIndex.length; i++) {
-        pinIndex[i].addEventListener('click', getTarget);
-        pinIndex[i].addEventListener('keydown', enterKeyOpen);
-      }
-    });
+    pinIndex = tokyoPinMap.querySelectorAll('.pin');
+    for (var i = 0; i < pinIndex.length; i++) {
+      pinIndex[i].addEventListener('click', getTarget);
+      pinIndex[i].addEventListener('keydown', enterKeyOpen);
+    }
   };
 
   var closeDialog = function () {

@@ -2,9 +2,7 @@
 
 (function () {
   window.load.getData('https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data', window.data.generateAds);
-
   window.pin.closeWindow();
-  window.pin.openCard();
   window.pin.closeDialog();
   window.form.formValidity();
 
